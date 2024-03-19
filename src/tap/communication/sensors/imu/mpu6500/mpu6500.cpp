@@ -43,7 +43,7 @@ void Mpu6500::initialize(float sampleFrequency, float mahonyKp, float mahonyKi)
 #ifndef PLATFORM_HOSTED
 
     // Configure NSS pin
-    Board::ImuNss::GpioOutput();
+    Board::ImuNss::configure(Gpio::OutputType::PushPull);
 
     // connect GPIO pins to the alternate SPI function
     Board::ImuSpiMaster::connect<Board::ImuMiso::Miso, Board::ImuMosi::Mosi, Board::ImuSck::Sck>();
