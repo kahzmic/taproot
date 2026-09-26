@@ -101,19 +101,20 @@ struct SystemClock
     static bool inline enable()
     {
 #ifndef PLATFORM_HOSTED
-        Rcc::enableExternalCrystal();  // 12 MHz
-        Rcc::PllFactors pllF = {
-            6,    // 12MHz / M=6 -> 2MHz
-            168,  // 2MHz * N=168 -> 336MHz
-            2     // 336MHz / P=2 -> 168MHz = F_cpu
+        Rcc::enableHseCrystal();  // 12 MHz
+        Rcc::PllConfig pllF = {
+            .M = 6,    // 12MHz / M=6 -> 2MHz
+            .N = 168,  // 2MHz * N=168 -> 336MHz
+            .P = 2,     // 336MHz / P=2 -> 168MHz = F_cpu
+            .Q = 4,  // reset value, PLL48CK unused
         };
-        Rcc::enablePll(Rcc::PllSource::ExternalCrystal, pllF);
+        Rcc::enablePll(Rcc::PllSource::Hse, pllF);
 
         Rcc::setFlashLatency<Frequency>();
-        Rcc::enableSystemClock(Rcc::SystemClockSource::Pll);
+        Rcc::enableSystemClock(Rcc::SystemClockSource::PllP);
         Rcc::setAhbPrescaler(Rcc::AhbPrescaler::Div1);
-        Rcc::setApb1Prescaler(Rcc::Apb1Prescaler::Div4);
-        Rcc::setApb2Prescaler(Rcc::Apb2Prescaler::Div2);
+        Rcc::setApb1Prescaler(Rcc::ApbPrescaler::Div4);
+        Rcc::setApb2Prescaler(Rcc::ApbPrescaler::Div2);
         Rcc::updateCoreFrequency<Frequency>();
 #endif
 
