@@ -161,9 +161,9 @@ void Mpu6500::spiWriteRegister(uint8_t reg, uint8_t data)
     mpuNssLow();
     uint8_t tx = reg & ~MPU6500_READ_BIT;
     uint8_t rx = 0;  // Unused
-    Board::ImuSpiMaster::transferBlocking(&tx, &rx, 1);
+    Board::ImuSpiMaster::transfer(&tx, &rx, 1);
     tx = data;
-    Board::ImuSpiMaster::transferBlocking(&tx, &rx, 1);
+    Board::ImuSpiMaster::transfer(&tx, &rx, 1);
     mpuNssHigh();
 #endif
 }
@@ -177,8 +177,8 @@ uint8_t Mpu6500::spiReadRegister(uint8_t reg)
     mpuNssLow();
     uint8_t tx = reg | MPU6500_READ_BIT;
     uint8_t rx = 0;
-    Board::ImuSpiMaster::transferBlocking(&tx, &rx, 1);
-    Board::ImuSpiMaster::transferBlocking(&tx, &rx, 1);
+    Board::ImuSpiMaster::transfer(&tx, &rx, 1);
+    Board::ImuSpiMaster::transfer(&tx, &rx, 1);
     mpuNssHigh();
     return rx;
 #endif
@@ -195,8 +195,8 @@ void Mpu6500::spiReadRegisters(uint8_t regAddr, uint8_t *pData, uint8_t len)
     uint8_t tx = regAddr | MPU6500_READ_BIT;
     uint8_t rx = 0;
     txBuff[0] = tx;
-    Board::ImuSpiMaster::transferBlocking(&tx, &rx, 1);
-    Board::ImuSpiMaster::transferBlocking(txBuff, pData, len);
+    Board::ImuSpiMaster::transfer(&tx, &rx, 1);
+    Board::ImuSpiMaster::transfer(txBuff, pData, len);
     mpuNssHigh();
 #endif
 }

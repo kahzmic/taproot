@@ -89,11 +89,11 @@ void tap::display::Sh1106<SPI, A0, Reset, Width, Height, Flipped>::setInvert(boo
 
     if (invert)
     {
-        spi.transferBlocking(SH1106_REVERSE);
+        spi.transfer(SH1106_REVERSE);
     }
     else
     {
-        spi.transferBlocking(SH1106_NORMAL);
+        spi.transfer(SH1106_NORMAL);
     }
 }
 
@@ -120,16 +120,16 @@ void tap::display::Sh1106<SPI, A0, Reset, Width, Height, Flipped>::initializeBlo
     // View direction
     if (Flipped)
     {
-        spi.transferBlocking(SH1106_ADC_NORMAL);
-        spi.transferBlocking(SH1106_SCAN_DIR_NORMAL);
+        spi.transfer(SH1106_ADC_NORMAL);
+        spi.transfer(SH1106_SCAN_DIR_NORMAL);
     }
     else
     {
-        spi.transferBlocking(SH1106_ADC_REVERSE);
-        spi.transferBlocking(SH1106_SCAN_DIR_REVERSE);
+        spi.transfer(SH1106_ADC_REVERSE);
+        spi.transfer(SH1106_SCAN_DIR_REVERSE);
     }
 
-    spi.transferBlocking(SH1106_ON);
+    spi.transfer(SH1106_ON);
 
     this->clear();
     this->update();
