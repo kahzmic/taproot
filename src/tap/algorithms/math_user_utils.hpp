@@ -247,7 +247,7 @@ modm::Quaternion<T> slerp(modm::Quaternion<T> q0, modm::Quaternion<T> q1, float 
 
     // If the quaternions are extremely close, close to parallel, or identical,
     // fallback to linear interpolation (LERP) to prevent sin(0) / sin(0) -> NaN.
-    if (cosTheta > 1 - 1e-4)
+    if (cosTheta > 1 - 1e-4f)
     {
         return q0 * (1.0f - t) + q1 * t;
     }

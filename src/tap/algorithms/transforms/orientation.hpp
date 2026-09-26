@@ -206,7 +206,7 @@ public:
                     matrix_[1 * 3 + 0] - matrix_[0 * 3 + 1]);
             }
         }
-        q *= 0.5 / sqrtf(t);
+        q *= 0.5f / sqrtf(t);
         return q;
     }
 
